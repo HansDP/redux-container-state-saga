@@ -1,3 +1,4 @@
+import React from 'react'
 import createSagaMiddleware from 'redux-saga'
 import { applyLocalMiddleware } from 'redux-container-state'
 
