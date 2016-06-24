@@ -1,14 +1,41 @@
 import createSagaMiddleware from 'redux-saga'
 
-export default (run, options) => {
+export default (saga, options) => {
 
-    const sagaMiddleware = createSagaMiddleware(options)
+	options = {
+		autoCancel: true,
+		onMount: (props) => { },
+		...options
+	}
 
-    return (viewWrapper) => {
-        const viewWithSagaMiddleware = sagaMiddleware(viewWrapper)
+    return (next) => {
 
-        run && run(sagaMiddleware.run)
+        return (View) => {
 
-        return viewWithSagaMiddleware
+            const sagaMiddleware = createSagaMiddleware(options)
+            const enhancer = applyLocalMiddleware(sagaMiddleware)
+            const nextWithMiddleware = enhancer(next)
+
+            return nextWithMiddleware(class SagaView extends React.Component {
+
+                componentWillMount() {
+                    this.saga = saga && sagaMiddleware.run(saga)
+                    if (options.onMount) {
+                    	options.onMount(this.props)
+                    }
+                }
+
+                componentWillUnmount() {
+                	if (this.saga && options.autoCancel) {
+	                	this.saga.cancel()
+                	}
+                    this.saga = null
+                }
+
+                render() {
+                    return React.createElement(View, this.props)
+                }
+            })
+        }
     }
 }

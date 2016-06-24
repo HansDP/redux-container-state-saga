@@ -14,7 +14,7 @@ import { view, applyLocalMiddleware } from 'redux-container-state'
 import { takeEvery, delay } from 'redux-saga'
 import { put } from 'redux-saga/effects'
 
-import localSagaMiddleware from 'redux-container-state-saga'
+import sagaViewEnhancer from 'redux-container-state-saga'
 
 // Our worker Saga: will perform the async increment task
 function* incrementAsync() {
@@ -27,17 +27,16 @@ function* watchIncrementAsync() {
   yield* takeEvery('INCREMENT_SAGA', incrementAsync)
 }
 
-const counterUpdater = updater((state = 0, action) => {
+const counterUpdater = updater((model = 0, action) => {
   switch (action.type) {
     case 'INCREMENT_COUNTER': 
-      return state + 1
+      return model + 1
     default:
-      return state
+      return model
   }
 })
 
-const runSaga = (run) => run(watchIncrementAsync)
-const viewWithMiddleware = compose(applyLocalMiddleware(localSagaMiddleware(runSaga)))(view)
+const viewWithMiddleware = compose(sagaViewEnhancer(watchIncrementAsync))(view)
 
 export default viewWithMiddleware(({model, dispatch}) => (
   <div>
