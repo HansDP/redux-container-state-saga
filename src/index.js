@@ -1,4 +1,5 @@
 import createSagaMiddleware from 'redux-saga'
+import { applyLocalMiddleware } from 'redux-container-state'
 
 export default (saga, options) => {
 
