@@ -1,7 +1,7 @@
 {
   "name": "redux-container-state-saga",
   "version": "0.1.5",
-  "description": "Enables redux-sage to handle side effects",
+  "description": "Enables redux-saga to handle local-only side effects",
   "main": "lib/index.js",
   "files": [
     "lib",
