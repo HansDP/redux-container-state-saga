@@ -6,6 +6,8 @@ Provides local saga middleware for containers in [redux-container-state](https:/
 
 This package encapsulates `redux-saga` to be used within the local scope of a container.
 
+This solution does not allow access to global actions or state, but we're working on that.
+
 ## Example usage
 
 ```javascript
