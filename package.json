@@ -1,6 +1,6 @@
 {
   "name": "redux-container-state-saga",
-  "version": "0.1.5",
+  "version": "0.3.1",
   "description": "Enables redux-saga to handle local-only side effects",
   "main": "lib/index.js",
   "files": [
@@ -55,7 +55,7 @@
     "eslint-plugin-jsx-a11y": "^1.2.0",
     "eslint-plugin-react": "^5.0.1",
     "redux": "^3.5.2",
-    "redux-container-state": "^0.1.4",
+    "redux-container-state": "^0.3.1",
     "redux-saga": "^0.10.5"
   }
 }
